@@ -5,10 +5,11 @@ pipeline {
     }
     stages {
         stage('Clone Reposiotory') {
-            steps {
-                git 'https://github.com/2006abhii91-bit/https://github.com/2006abhii91-bit/docker.git'
-            }
-        }
+    steps {
+        git url: 'https://github.com/2006abhii91-bit/docker.git', branch: 'master'
+    }
+}
+
         stage('Build Docker Image') {
             steps {
                 script {
@@ -26,8 +27,10 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('', 'docker-hub-credentials') {
-                        docker.image("${DOCKER_IMAGE}:v1").push()
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        docker.withRegistry('', 'dockerhub-creds') {
+                            docker.image("${DOCKER_IMAGE}:v1").push()
+                        }
                     }
                 }
             }

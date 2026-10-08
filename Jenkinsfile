@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Clone Reposiotory') {
             steps {
-                git 'https://github.com/2006abhii91-bit/docker.git'
+                git 'https://github.com/2006abhii91-bit/https://github.com/2006abhii91-bit/docker.git'
             }
         }
         stage('Build Docker Image') {
@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Login to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     bat "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
                 }
             }

@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "2006abhii91/docker-image"
+        DOCKER_IMAGE = "2006abhii91/docker"
     }
 
     stages {

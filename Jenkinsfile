@@ -9,7 +9,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 git branch: 'master',
-                    url: 'https://github.com/2006abhii91/docker.git'
+                    url: 'https://github.com/2006abhii91-bit/docker.git'
             }
         }
 

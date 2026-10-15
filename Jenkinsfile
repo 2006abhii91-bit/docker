@@ -19,20 +19,19 @@ pipeline {
             }
         }
 
-        stage('Login to Docker Hub') {
-            steps {
-                withCredentials([string(
-                    credentialsId: 'dockerhub-PAT',
-                    variable: 'DOCKER_PAT'
-                )]) {
-                    bat '''
-                    @echo off
-                    echo %DOCKER_PAT%|docker login -u 2006abhii91 --password-stdin
-                   if errorlevel 1 exit /b 1
-                    '''
-                }
-            }
+       stage('Login to Docker Hub') {
+    steps {
+        withCredentials([
+            usernamePassword(
+                credentialsId: 'dockerhub-PAT',
+                usernameVariable: 'DOCKER_USER',
+                passwordVariable: 'DOCKER_PASS'
+            )
+        ]) {
+            bat 'docker login -u "%DOCKER_USER%" --password-stdin'
         }
+    }
+}
 
         stage('Push Docker Image') {
             steps {
